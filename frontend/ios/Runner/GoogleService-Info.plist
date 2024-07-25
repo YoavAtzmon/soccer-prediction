@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>233007449208-gten5o2t6ol9855hala64dpscmji3m3f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.233007449208-gten5o2t6ol9855hala64dpscmji3m3f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCOoeONvUB5ICkJ4v4GcVWc0oKsQdBxhTQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>233007449208</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.guess</string>
+	<key>PROJECT_ID</key>
+	<string>world-cup-guess-e83ac</string>
+	<key>STORAGE_BUCKET</key>
+	<string>world-cup-guess-e83ac.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:233007449208:ios:a8070486869fa52ffc998d</string>
+</dict>
+</plist>

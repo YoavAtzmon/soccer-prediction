@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "233007449208",
+    "project_id": "world-cup-guess-e83ac",
+    "storage_bucket": "world-cup-guess-e83ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233007449208:android:dff9af133f143068fc998d",
+        "android_client_info": {
+          "package_name": "com.example.guess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233007449208-da508lu2vvgbdu98qjiujqo8nlhgn4j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guess",
+            "certificate_hash": "5c21adcb65cc0639560216acc1f810d0b8667f11"
+          }
+        },
+        {
+          "client_id": "233007449208-tt34b9bt08heeaeu9nc3h56miri1rbra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLnLep-OdGXpP7MdmNr9XekgBFtyhneWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233007449208-tt34b9bt08heeaeu9nc3h56miri1rbra.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "233007449208-gten5o2t6ol9855hala64dpscmji3m3f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.guess"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

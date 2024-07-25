@@ -1,0 +1,14 @@
+platform :ios, '12.0'
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  # Firebase
+  pod 'Firebase/Analytics'
+  # Add other Firebase pods for the products you want to use
+  # For example:
+  # pod 'Firebase/Auth'
+  # pod 'Firebase/Firestore'
+  # pod 'Firebase/Storage'
+end
