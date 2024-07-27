@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/config/env.dart';
 import 'package:namer_app/providers/my_app_state.dart';
 import 'package:namer_app/screens/home_page.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EnvironmentConfig().initialize(Environment.dev);
   runApp(MyApp());
 }
 

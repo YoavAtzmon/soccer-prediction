@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:namer_app/config/env.dart';
 
 class GoogleAuthService {
+  final FirebaseAuth _auth = EnvironmentConfig().auth;
   Future<void> signInWithGoogle() async {
     // Implement Google Sign In
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
@@ -12,13 +14,13 @@ class GoogleAuthService {
       accessToken: gAuth.accessToken,
       idToken: gAuth.idToken,
     );
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    await _auth.signInWithCredential(credential);
   }
 
   Future<void> signOut() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     await googleSignIn.signOut();
-    await FirebaseAuth.instance.signOut();
+    await _auth.signOut();
   }
 }
