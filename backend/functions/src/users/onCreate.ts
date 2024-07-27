@@ -7,8 +7,8 @@ export const storeUserData = functions.auth.user().onCreate(async (user) => {
       displayName: user.displayName,
       email: user.email,
       photoURL: user.photoURL,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    }, {merge: true});
+      createdAt: new Date(),
+    }, { merge: true });
 
     console.log(`User data stored for ${user.uid}`);
     return null;
