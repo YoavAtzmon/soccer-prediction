@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,13 +12,12 @@ class EnvironmentConfig {
   factory EnvironmentConfig() => _singleton;
   EnvironmentConfig._internal();
 
-  late Environment _environment;
+  static late FirebaseApp firebaseApp;
 
-  Future<void> initialize(Environment env) async {
-    _environment = env;
-    await Firebase.initializeApp();
-
-    if (_environment == Environment.dev) {
+  Future<void> initialize() async {
+    bool isProduction = const bool.fromEnvironment('dart.vm.product');
+    firebaseApp = await Firebase.initializeApp();
+    if (!isProduction) {
       try {
         FirebaseFunctions.instance.useFunctionsEmulator('127.0.0.1', 5001);
         FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
@@ -26,9 +27,6 @@ class EnvironmentConfig {
       }
     }
   }
-
-  bool get isDev => _environment == Environment.dev;
-  bool get isProd => _environment == Environment.prod;
 
   // Firebase instances
   FirebaseFirestore get firestore => FirebaseFirestore.instance;

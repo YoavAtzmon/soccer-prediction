@@ -21,9 +21,6 @@ class _LoginState extends State<Login> {
                   _isLoading = true;
                 });
                 await GoogleAuthService().signInWithGoogle();
-                setState(() {
-                  _isLoading = false;
-                });
               },
               child: const Text('Sign in with Google'),
             ),

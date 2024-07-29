@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:namer_app/widgets/flutter_dialog.dart';
+import 'package:namer_app/features/create_league/widgets/submit_button.dart';
+import 'package:namer_app/widgets/info_dialog.dart';
 
-class CreateLeagueForm extends StatefulWidget {
-  const CreateLeagueForm({Key? key}) : super(key: key);
-  @override
-  State<CreateLeagueForm> createState() => _CreateLeagueFormState();
-}
-
-class _CreateLeagueFormState extends State<CreateLeagueForm> {
+class CreateLeagueForm extends StatelessWidget {
+  CreateLeagueForm({super.key});
   final _formKey = GlobalKey<FormBuilderState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,93 +20,41 @@ class _CreateLeagueFormState extends State<CreateLeagueForm> {
               child: Column(
                 children: [
                   FormBuilderTextField(
-                    name: 'leagueName',
+                    name: 'name',
                     decoration: const InputDecoration(labelText: 'League Name'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                     ]),
                   ),
                   FormBuilderSwitch(
-                    name: 'limitParticipants',
-                    title: const Text('Limit Participants Number'),
-                  ),
-                  FormBuilderField(
-                    name: 'participantLimitField',
-                    builder: (FormFieldState<dynamic> field) {
-                      final limitParticipants = _formKey.currentState
-                              ?.fields['limitParticipants']?.value as bool? ??
-                          false;
-                      if (limitParticipants) {
-                        return FormBuilderTextField(
-                          name: 'participantLimit',
-                          decoration: const InputDecoration(
-                              labelText: 'Participant Limit'),
-                          keyboardType: TextInputType.number,
-                          validator: FormBuilderValidators.compose([
-                            FormBuilderValidators.numeric(),
-                          ]),
-                        );
-                      } else {
-                        return const SizedBox
-                            .shrink(); // Return an empty widget when condition is false
-                      }
-                    },
-                  ),
-                  FormBuilderSwitch(
-                    name: 'needsAccessCode',
-                    title: Row(
+                    name: 'withAccessCode',
+                    title: const Row(
                       children: [
-                        const Text('Requires Access Code'),
-                        IconButton(
-                          icon: const Icon(Icons.info_outline, size: 20),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return FlutterDialog(
-                                    title: 'Access Code Information',
-                                    confirmButtonText: 'Got it',
-                                    content:
-                                        'If enabled, users will need to enter an access code to join this league. This helps keep your league private and exclusive.',
-                                    onConfirm: () =>
-                                        Navigator.of(context).pop());
-                              },
-                            );
-                          },
-                        ),
+                        Text('Requires Access Code'),
+                        InfoDialog(
+                            title: 'Access Code Information',
+                            content:
+                                'If enabled, users will need to enter an access code to join this league. This helps keep your league private and exclusive.')
                       ],
                     ),
                   ),
                   FormBuilderSwitch(
-                    name: 'includesPay',
-                    title: Row(
+                    name: 'withPay',
+                    title: const Row(
                       children: [
-                        const Text('Includes Payment'),
-                        IconButton(
-                          icon: const Icon(Icons.info_outline, size: 20),
-                          onPressed: () => {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return FlutterDialog(
-                                    title: 'Payment Information',
-                                    confirmButtonText: 'Got it',
-                                    content:
-                                        'If enabled, You can set the payment link in the next step.',
-                                    onConfirm: () =>
-                                        Navigator.of(context).pop());
-                              },
-                            )
-                          },
-                        )
+                        Text('Includes Payment'),
+                        InfoDialog(
+                            title: 'Include Payment Information',
+                            content:
+                                'If enabled, You can set the payment link in the next step.')
                       ],
                     ),
                   ),
                   FormBuilderField(
                     name: 'paymentLink',
                     builder: (FormFieldState<dynamic> field) {
-                      final withPay = _formKey.currentState
-                              ?.fields['includesPay']?.value as bool? ??
+                      final withPay = _formKey.currentState?.fields['withPay']
+                              ?.value as bool? ??
                           false;
                       if (withPay) {
                         return FormBuilderTextField(
@@ -130,22 +73,7 @@ class _CreateLeagueFormState extends State<CreateLeagueForm> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    child: const Text('Create League'),
-                    onPressed: () {
-                      if (_formKey.currentState!.saveAndValidate()) {
-                        final formData = _formKey.currentState!.value;
-                        print(formData);
-                        // FirebaseFirestore.instance.collection('leagues').add(formData).then((_) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('League created successfully')));
-                        // }).catchError((error) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to create league: $error')));
-                        // });
-                      }
-                    },
-                  ),
+                  SubmitButton(formKey: _formKey),
                 ],
               ),
             ),
