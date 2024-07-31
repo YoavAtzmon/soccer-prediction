@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/providers/user_leagues.dart';
+import 'package:namer_app/screens/league.dart';
 import 'package:namer_app/services/league_service.dart';
 import 'package:namer_app/widgets/flutter_dialog.dart';
 
@@ -25,6 +26,11 @@ class _LeagueListState extends State<LeagueList> {
           children: widget.leagueState.userLeagues.map((league) {
             return Card(
                 child: ListTile(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return League(leagueId: league.leagueId);
+                }));
+              },
               title: Text(league.leagueName),
               trailing: league.isAdmin
                   ? IconButton(
