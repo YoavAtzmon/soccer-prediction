@@ -2,6 +2,7 @@ class UserLeagueProps {
   final String leagueId;
   final String leagueName;
   final String userId;
+  final bool isAdmin;
   final String? leaguePhotoURL;
   // final String createdAt;
 
@@ -9,9 +10,9 @@ class UserLeagueProps {
     required this.leagueId,
     required this.leagueName,
     required this.userId,
-    // required this.createdAt,
+    required this.isAdmin,
     this.leaguePhotoURL,
-    // Add other required properties
+    // required this.createdAt,
   });
 
   factory UserLeagueProps.fromMap(Map<String, dynamic> map) {
@@ -19,9 +20,9 @@ class UserLeagueProps {
       leagueId: map['leagueId'] ?? '',
       leagueName: map['leagueName'] ?? '',
       userId: map['userId'] ?? '',
-      // createdAt: map['createdAt'] ?? '',
+      isAdmin: map['isAdmin'] ?? false,
       leaguePhotoURL: map['leaguePhotoURL'] ?? '',
-      // Parse other properties, handling potential null values
+      // createdAt: map['createdAt'] ?? '',
     );
   }
 }

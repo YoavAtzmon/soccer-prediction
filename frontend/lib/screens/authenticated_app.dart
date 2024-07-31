@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:namer_app/screens/leagues.dart';
+import 'package:namer_app/screens/my_leagues.dart';
 import 'package:namer_app/screens/user.dart';
 
 class AuthenticatedApp extends StatefulWidget {
@@ -21,7 +21,7 @@ class AuthenticatedAppState extends State<AuthenticatedApp> {
     super.initState();
     _children = [
       UserPage(user: widget.user),
-      const Leagues(),
+      const MyLeagues(),
       const Placeholder()
     ];
   }

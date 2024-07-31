@@ -9,11 +9,8 @@ export const storeUserData = functions.auth.user().onCreate(async (user) => {
       photoURL: user.photoURL,
       createdAt: new Date(),
     }, { merge: true });
-
-    console.log(`User data stored for ${user.uid}`);
     return null;
   } catch (error) {
-    console.error("Error storing user data:", error);
     return null;
   }
 });

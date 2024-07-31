@@ -25,7 +25,7 @@ class InfoDialog extends StatelessWidget {
             return FlutterDialog(
                 title: title,
                 confirmButtonText: confirmButtonText,
-                content: content,
+                content: Text(content),
                 onConfirm: () => Navigator.of(context).pop());
           },
         )

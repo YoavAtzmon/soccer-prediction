@@ -35,8 +35,8 @@ class FavoritePage extends StatelessWidget {
                               Navigator.of(context).pop()
                             },
                             title: 'Remove Favorite',
-                            content:
-                                'Would you like to remove ${pair.asPascalCase} from your favorites?',
+                            content: Text(
+                                'Would you like to remove ${pair.asPascalCase} from your favorites?'),
                           );
                         },
                       );

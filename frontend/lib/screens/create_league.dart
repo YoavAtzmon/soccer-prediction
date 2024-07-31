@@ -27,18 +27,6 @@ class CreateLeagueForm extends StatelessWidget {
                     ]),
                   ),
                   FormBuilderSwitch(
-                    name: 'withAccessCode',
-                    title: const Row(
-                      children: [
-                        Text('Requires Access Code'),
-                        InfoDialog(
-                            title: 'Access Code Information',
-                            content:
-                                'If enabled, users will need to enter an access code to join this league. This helps keep your league private and exclusive.')
-                      ],
-                    ),
-                  ),
-                  FormBuilderSwitch(
                     name: 'withPay',
                     title: const Row(
                       children: [
@@ -51,7 +39,7 @@ class CreateLeagueForm extends StatelessWidget {
                     ),
                   ),
                   FormBuilderField(
-                    name: 'paymentLink',
+                    name: 'paymentLinkField',
                     builder: (FormFieldState<dynamic> field) {
                       final withPay = _formKey.currentState?.fields['withPay']
                               ?.value as bool? ??

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:namer_app/config/env.dart';
 import 'package:namer_app/providers/user_leagues.dart';
 import 'package:namer_app/screens/home_page.dart';
+import 'package:namer_app/screens/my_leagues.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -22,6 +23,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Namer App',
+      routes: {
+        '/my_leagues': (context) => const MyLeagues(),
+        // Add other routes as needed
+      },
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),

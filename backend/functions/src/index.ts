@@ -6,3 +6,4 @@ export { createLeague } from "./leagues/createLeague";
 export { createUserLeague } from "./userLeagues/createUserLeague";
 export { getUserLeagues } from "./userLeagues/getUserLeagues";
 export { deleteLeague } from "./leagues/deleteLeague";
+export { joinLeague } from "./userLeagues/joinLeague";

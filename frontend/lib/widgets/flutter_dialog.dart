@@ -7,28 +7,29 @@ class FlutterDialog extends StatelessWidget {
       required this.onConfirm,
       this.content,
       this.confirmButtonText = 'Confirm',
-      this.showCancel});
+      this.showCancel,
+      this.loading});
 
   final String title;
-  final String? content;
+  final Widget? content;
   final String confirmButtonText;
   final bool? showCancel;
-  final void Function() onConfirm;
-
+  final bool? loading;
+  final dynamic onConfirm;
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-        title: Text(title),
-        content: Text(content!),
-        actions: <Widget>[
-          if (showCancel == true)
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-          TextButton(onPressed: onConfirm, child: Text(confirmButtonText))
-        ]);
+    return AlertDialog(title: Text(title), content: content!, actions: <Widget>[
+      if (showCancel == true)
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancel'),
+        ),
+      if (loading == true)
+        const CircularProgressIndicator()
+      else
+        TextButton(onPressed: onConfirm, child: Text(confirmButtonText))
+    ]);
   }
 }
