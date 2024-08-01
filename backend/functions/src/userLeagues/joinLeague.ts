@@ -6,7 +6,7 @@ export const joinLeague = functions.https.onCall(async (leagueId: string, contex
     try {
         const league = await admin.firestore().collection('leagues').doc(leagueId).get();
         if (league.exists) {
-            await createUserLeague({ leagueName: league.data()?.name, leagueId: leagueId, userId: uid!, leaguePhotoURL: '', isAdmin: false });
+            await createUserLeague({ leagueId: leagueId, userId: uid! });
             return { message: `User ${uid} joined league ${leagueId}` };
         } else {
             throw new functions.https.HttpsError('unknown', 'Error joining league. league does not exist');

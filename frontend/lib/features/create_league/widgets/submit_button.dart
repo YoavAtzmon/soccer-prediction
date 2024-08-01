@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:namer_app/models/league.dart';
 import 'package:namer_app/providers/user_leagues.dart';
 import 'package:namer_app/services/league_service.dart';
 import 'package:namer_app/utils/helpers_functions.dart';
@@ -30,8 +29,11 @@ class _SubmitButtonState extends State<SubmitButton> {
           isLoading = true;
         });
         final formData = formKey.currentState!.value;
-        final leagueProps = LeagueProps.fromMap(formData);
-        LeagueService().createLeague(leagueProps).then((value) {
+        LeagueService().createLeague({
+          'leagueName': formData["leagueName"],
+          'withPayment': formData["withPayment"],
+          'paymentLink': formData["paymentLink"],
+        }).then((value) {
           showDialog(
               context: context,
               builder: (BuildContext context) {

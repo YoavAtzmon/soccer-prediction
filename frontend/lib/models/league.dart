@@ -1,53 +1,41 @@
 class LeagueProps {
-  String name;
-  bool withAccessCode;
-  Payment payment;
+  String leagueId;
+  String leagueName;
+  String userId;
+  List<Object?> admins;
+  bool withPayment;
+  String? paymentLink;
+  String? leaguePhotoURL;
 
   LeagueProps({
-    required this.name,
-    required this.withAccessCode,
-    required this.payment,
+    required this.leagueId,
+    required this.leagueName,
+    required this.userId,
+    required this.admins,
+    required this.withPayment,
+    this.paymentLink,
+    this.leaguePhotoURL,
   });
   factory LeagueProps.fromMap(Map<String, dynamic> map) {
     return LeagueProps(
-      name: map['name'] as String,
-      withAccessCode: (map['withAccessCode'] ?? false) as bool,
-      payment: (map['withPay'] ?? false) as bool
-          ? PaymentWithPay(map['paymentLink'] as String)
-          : PaymentWithoutPay(),
+      leagueId: map['leagueId'] ?? '',
+      leagueName: map['leagueName'] ?? '',
+      userId: map['userId'] ?? '',
+      admins: map['admins'] ?? [],
+      leaguePhotoURL: map['leaguePhotoURL'] ?? '',
+      withPayment: map['withPayment'] ?? false,
+      paymentLink: map['paymentLink'] ?? '',
     );
   }
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'withAccessCode': withAccessCode,
-      'payment': payment.toJson(),
-    };
-  }
-}
-
-abstract class Payment {
-  Map<String, dynamic> toJson();
-}
-
-class PaymentWithPay extends Payment {
-  String paymentLink;
-  PaymentWithPay(this.paymentLink);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'withPay': true,
+      'leagueName': leagueName,
+      'withPayment': withPayment,
       'paymentLink': paymentLink,
-    };
-  }
-}
-
-class PaymentWithoutPay extends Payment {
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'withPay': false,
+      'leaguePhotoURL': leaguePhotoURL,
+      'admins': admins,
+      'userId': userId,
+      'leagueId': leagueId,
     };
   }
 }

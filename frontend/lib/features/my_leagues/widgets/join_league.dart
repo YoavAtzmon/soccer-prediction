@@ -41,7 +41,15 @@ class _JoinLeagueState extends State<JoinLeague> {
                     onConfirm: leagueCode != ''
                         ? () async {
                             try {
-                              await leagueState.joinLeague(leagueCode);
+                              leagueState.joinLeague(leagueCode).then((_) {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          League(leagueId: leagueCode)),
+                                );
+                              });
                             } catch (e) {
                               final error = e as FirebaseFunctionsException;
                               final message = error.details['message'];
@@ -51,16 +59,6 @@ class _JoinLeagueState extends State<JoinLeague> {
                                     backgroundColor: Colors.red,
                                     content: Text(message),
                                   ),
-                                );
-                              }
-                            } finally {
-                              if (context.mounted) {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          League(leagueId: leagueCode)),
                                 );
                               }
                             }

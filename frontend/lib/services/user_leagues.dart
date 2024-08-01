@@ -1,19 +1,18 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:namer_app/config/env.dart';
-import 'package:namer_app/models/user_league.dart';
+import 'package:namer_app/models/league.dart';
 
 class UserLeaguesService {
   final FirebaseFunctions _functions = EnvironmentConfig().functions;
 
-  Future<List<UserLeagueProps>> _getUserLeagues() async {
+  Future<List<LeagueProps>> _getUserLeagues() async {
     try {
       final HttpsCallableResult result =
           await _functions.httpsCallable("getUserLeagues").call();
-      final List<dynamic> data = result.data as List<dynamic>;
+      final List<dynamic> data = result.data;
 
       return data
-          .map((item) => UserLeagueProps.fromMap(
-              Map<String, dynamic>.from(item as Map<Object?, Object?>)))
+          .map((item) => LeagueProps.fromMap(Map<String, dynamic>.from(item)))
           .toList();
     } catch (e) {
       print('Error in _getUserLeagues: $e');
@@ -30,7 +29,16 @@ class UserLeaguesService {
     }
   }
 
+  Future<dynamic> _leaveLeague(String leagueId) async {
+    try {
+      final res = await _functions.httpsCallable("leaveLeague").call(leagueId);
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> Function(String) get leaveLeague => _leaveLeague;
   Future<dynamic> Function(String) get joinLeague => _joinLeague;
-  Future<List<UserLeagueProps>> Function() get getUserLeagues =>
-      _getUserLeagues;
+  Future<List<LeagueProps>> Function() get getUserLeagues => _getUserLeagues;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/config/env.dart';
 import 'package:namer_app/providers/user_leagues.dart';
 import 'package:namer_app/screens/league.dart';
 import 'package:namer_app/services/league_service.dart';
@@ -19,11 +20,13 @@ class LeagueList extends StatefulWidget {
 class _LeagueListState extends State<LeagueList> {
   @override
   Widget build(BuildContext context) {
+    print('leagueState: ${widget.leagueState.userLeagues}');
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(9.0),
         child: ListView(
           children: widget.leagueState.userLeagues.map((league) {
+            print('league item :${league.toJson()}');
             return Card(
                 child: ListTile(
               onTap: () {
@@ -32,7 +35,8 @@ class _LeagueListState extends State<LeagueList> {
                 }));
               },
               title: Text(league.leagueName),
-              trailing: league.isAdmin
+              trailing: league.admins
+                      .contains(EnvironmentConfig().auth.currentUser?.uid)
                   ? IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () async {

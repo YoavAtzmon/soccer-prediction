@@ -4,12 +4,12 @@ import { createUserLeague } from "../userLeagues/createUserLeague";
 
 export const createLeague = functions.https.onCall(async (data: LeagueProps, context) => {
     try {
-        const { name, withAccessCode, payment } = data;
+        const { leagueName, withPayment, paymentLink } = data;
         const uid = context.auth?.uid;
         const leagueRef = await admin.firestore().collection('leagues').add({
-            name,
-            withAccessCode,
-            payment,
+            leagueName,
+            paymentLink,
+            withPayment,
             createdBy: uid,
             createdAt: new Date(),
             admins: [uid],
@@ -17,11 +17,8 @@ export const createLeague = functions.https.onCall(async (data: LeagueProps, con
 
         await createUserLeague(
             {
-                leagueName: name,
                 leagueId: leagueRef.id,
                 userId: uid!,
-                leaguePhotoURL: '',
-                isAdmin: true,
             }
         );
         return leagueRef.id;

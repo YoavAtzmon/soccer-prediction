@@ -20,14 +20,14 @@ class CreateLeagueForm extends StatelessWidget {
               child: Column(
                 children: [
                   FormBuilderTextField(
-                    name: 'name',
+                    name: 'leagueName',
                     decoration: const InputDecoration(labelText: 'League Name'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                     ]),
                   ),
                   FormBuilderSwitch(
-                    name: 'withPay',
+                    name: 'withPayment',
                     title: const Row(
                       children: [
                         Text('Includes Payment'),
@@ -41,12 +41,14 @@ class CreateLeagueForm extends StatelessWidget {
                   FormBuilderField(
                     name: 'paymentLinkField',
                     builder: (FormFieldState<dynamic> field) {
-                      final withPay = _formKey.currentState?.fields['withPay']
-                              ?.value as bool? ??
+                      final withPay = _formKey.currentState
+                              ?.fields['withPayment']?.value as bool? ??
                           false;
                       if (withPay) {
                         return FormBuilderTextField(
                           name: 'paymentLink',
+                          initialValue:
+                              'https://payboxapp.page.link/3afd1JnY2FtQPRv27',
                           decoration: const InputDecoration(
                               labelText: 'Payment Link (Bit or Paybox)'),
                           validator: FormBuilderValidators.compose([
