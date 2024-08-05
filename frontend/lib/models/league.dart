@@ -6,6 +6,7 @@ class LeagueProps {
   bool withPayment;
   String? paymentLink;
   String? leaguePhotoURL;
+  List<Object?> members;
 
   LeagueProps({
     required this.leagueId,
@@ -13,6 +14,7 @@ class LeagueProps {
     required this.userId,
     required this.admins,
     required this.withPayment,
+    required this.members,
     this.paymentLink,
     this.leaguePhotoURL,
   });
@@ -25,6 +27,7 @@ class LeagueProps {
       leaguePhotoURL: map['leaguePhotoURL'] ?? '',
       withPayment: map['withPayment'] ?? false,
       paymentLink: map['paymentLink'] ?? '',
+      members: map['members'] ?? [],
     );
   }
   Map<String, dynamic> toJson() {
@@ -36,6 +39,7 @@ class LeagueProps {
       'admins': admins,
       'userId': userId,
       'leagueId': leagueId,
+      'members': members,
     };
   }
 }

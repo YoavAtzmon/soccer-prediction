@@ -1,6 +1,6 @@
 type LeagueProps = {
     leagueName: string;
-    withAccessCode: boolean;
+    leaguePhotoURL: string;
     withPayment: boolean;
     paymentLink?: string;
 }

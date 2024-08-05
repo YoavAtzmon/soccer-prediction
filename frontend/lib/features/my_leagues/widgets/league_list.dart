@@ -20,13 +20,11 @@ class LeagueList extends StatefulWidget {
 class _LeagueListState extends State<LeagueList> {
   @override
   Widget build(BuildContext context) {
-    print('leagueState: ${widget.leagueState.userLeagues}');
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(9.0),
         child: ListView(
           children: widget.leagueState.userLeagues.map((league) {
-            print('league item :${league.toJson()}');
             return Card(
                 child: ListTile(
               onTap: () {

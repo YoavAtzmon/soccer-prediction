@@ -48,7 +48,7 @@ class _MyLeaguesState extends State<MyLeagues> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CreateLeagueForm()),
+                            builder: (context) => const CreateLeagueForm()),
                       );
                     },
                     icon: const Icon(Icons.add),

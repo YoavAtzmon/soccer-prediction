@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin';
-import * as functions from 'firebase-functions'
+import * as functions from 'firebase-functions';
 export const getUserLeagues = functions.https.onCall(async (_, context) => {
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'The function must be called while authenticated.');
@@ -8,13 +8,9 @@ export const getUserLeagues = functions.https.onCall(async (_, context) => {
     const uid = context.auth.uid;
 
     try {
-        const userLeaguesSnapshot = await admin.firestore().collection('userLeague')
-            .where('userId', '==', uid)
-            .get();
-        if (userLeaguesSnapshot.empty) {
-            return [];
-        }
-        const leagueIds = userLeaguesSnapshot.docs.map(doc => doc.data().leagueId);
+        const userLeaguesSnapshot = await admin.firestore().collection('users').doc(uid).get();
+
+        const leagueIds = userLeaguesSnapshot.data()?.leagues || [];
         const leagues = [];
         for (const leagueId of leagueIds) {
             const leagueDoc = await admin.firestore().collection('leagues').doc(leagueId).get();

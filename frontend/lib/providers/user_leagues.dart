@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/models/league.dart';
+import 'package:namer_app/models/user.dart';
+import 'package:namer_app/services/league_service.dart';
 import 'package:namer_app/services/user_leagues.dart';
 
 class UserLeagueProvider extends ChangeNotifier {
@@ -29,6 +31,15 @@ class UserLeagueProvider extends ChangeNotifier {
       // If no league is found, return null or handle the error as needed
       print("No league found with id: $leagueId");
       return null;
+    }
+  }
+
+  Future<List<UserProps>> getLeagueUsers(String leagueId) async {
+    try {
+      final usersList = await LeagueService().getLeagueUsers(leagueId);
+      return usersList;
+    } catch (e) {
+      rethrow;
     }
   }
 

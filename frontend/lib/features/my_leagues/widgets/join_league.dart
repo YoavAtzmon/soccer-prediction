@@ -17,6 +17,8 @@ class _JoinLeagueState extends State<JoinLeague> {
   Widget build(BuildContext context) {
     var leagueState = context.watch<UserLeagueProvider>();
     String leagueCode = '';
+    bool isLoading = false;
+
     return ElevatedButton.icon(
       onPressed: () {
         showDialog(
@@ -36,10 +38,14 @@ class _JoinLeagueState extends State<JoinLeague> {
                         });
                       },
                     ),
+                    loading: isLoading,
                     showCancel: true,
                     confirmButtonText: 'Join',
                     onConfirm: leagueCode != ''
                         ? () async {
+                            setState(() {
+                              isLoading = true;
+                            });
                             try {
                               leagueState.joinLeague(leagueCode).then((_) {
                                 Navigator.pop(context);
@@ -61,6 +67,10 @@ class _JoinLeagueState extends State<JoinLeague> {
                                   ),
                                 );
                               }
+                            } finally {
+                              setState(() {
+                                isLoading = false;
+                              });
                             }
                           }
                         : null);
