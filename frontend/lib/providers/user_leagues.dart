@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:namer_app/models/league.dart';
 import 'package:namer_app/models/user.dart';
 import 'package:namer_app/services/league_service.dart';
-import 'package:namer_app/services/odds.dart';
 import 'package:namer_app/services/user_leagues.dart';
 
 class UserLeagueProvider extends ChangeNotifier {

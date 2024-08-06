@@ -5,6 +5,7 @@ import 'package:namer_app/models/league.dart';
 import 'package:namer_app/models/user.dart';
 import 'package:namer_app/providers/user_leagues.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class League extends StatefulWidget {
   final String leagueId;
@@ -42,7 +43,7 @@ class _LeagueState extends State<League> {
         } else {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('League'),
+              title: Text(AppLocalizations.of(context)!.helloWorld),
             ),
             body: Center(
               child: Column(
