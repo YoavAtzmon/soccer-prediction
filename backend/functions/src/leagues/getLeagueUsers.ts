@@ -1,9 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-
 export const getLeagueUsers = functions.https.onCall(async (leagueId: string) => {
     try {
-
         const league = await admin.firestore().collection('leagues').doc(leagueId).get();
         const members = league.data()?.members || [];
         const users = await Promise.all(members.map(async (memberId: string) => {

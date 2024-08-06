@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:namer_app/config/env.dart';
 import 'package:namer_app/providers/user_leagues.dart';
 import 'package:namer_app/screens/league.dart';
 import 'package:namer_app/services/league_service.dart';
+import 'package:namer_app/utils/helpers_functions.dart';
 import 'package:namer_app/widgets/flutter_dialog.dart';
 
 class LeagueList extends StatefulWidget {
@@ -33,8 +33,7 @@ class _LeagueListState extends State<LeagueList> {
                 }));
               },
               title: Text(league.leagueName),
-              trailing: league.admins
-                      .contains(EnvironmentConfig().auth.currentUser?.uid)
+              trailing: isLeagueAdmin(league)
                   ? IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () async {

@@ -50,13 +50,13 @@ class _SubmitButtonState extends State<SubmitButton> {
                     )
                   ]),
                   onConfirm: () {
-                    leagueState.fetchUserLeagues().then((_) {
-                      Navigator.of(context).pop();
-                    });
+                    Navigator.of(context).pop();
                   },
                 );
-              }).then((_) {
-            Navigator.of(context).pop();
+              }).whenComplete(() {
+            leagueState.fetchUserLeagues().then((_) {
+              Navigator.of(context).pop();
+            });
           });
         }).catchError((error) {
           ScaffoldMessenger.of(context)

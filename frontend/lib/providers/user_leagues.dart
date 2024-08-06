@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:namer_app/models/league.dart';
 import 'package:namer_app/models/user.dart';
 import 'package:namer_app/services/league_service.dart';
+import 'package:namer_app/services/odds.dart';
 import 'package:namer_app/services/user_leagues.dart';
 
 class UserLeagueProvider extends ChangeNotifier {
@@ -24,13 +25,16 @@ class UserLeagueProvider extends ChangeNotifier {
     return res;
   }
 
-  LeagueProps? getLeague(String leagueId) {
+  bool leagueExists(String leagueId) {
+    return userLeagues.any((league) => league.leagueId == leagueId);
+  }
+
+  LeagueProps getLeague(String leagueId) {
     try {
       return userLeagues.firstWhere((league) => league.leagueId == leagueId);
     } catch (e) {
-      // If no league is found, return null or handle the error as needed
       print("No league found with id: $leagueId");
-      return null;
+      rethrow;
     }
   }
 

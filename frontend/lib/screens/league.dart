@@ -1,11 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:namer_app/features/league/widgets/league_menu.dart';
 import 'package:namer_app/models/league.dart';
 import 'package:namer_app/models/user.dart';
 import 'package:namer_app/providers/user_leagues.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class League extends StatefulWidget {
   final String leagueId;
@@ -20,11 +19,13 @@ class _LeagueState extends State<League> {
   @override
   Widget build(BuildContext context) {
     var leagueState = context.watch<UserLeagueProvider>();
-
+    if (!leagueState.leagueExists(widget.leagueId)) {
+      return const CircularProgressIndicator();
+    }
     return FutureBuilder(
       future: leagueState.getLeagueUsers(widget.leagueId),
       builder: (context, AsyncSnapshot<List<UserProps?>> snapshot) {
-        final LeagueProps? league = leagueState.getLeague(widget.leagueId);
+        final LeagueProps league = leagueState.getLeague(widget.leagueId);
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -38,12 +39,6 @@ class _LeagueState extends State<League> {
               child: Text('Error: ${snapshot.error}'),
             ),
           );
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Scaffold(
-            body: Center(
-              child: Text('No users in this league.'),
-            ),
-          );
         } else {
           return Scaffold(
             appBar: AppBar(
@@ -53,47 +48,48 @@ class _LeagueState extends State<League> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Welcome to : ${league?.leagueName}'),
-                  league?.leaguePhotoURL == ''
+                  Text('Welcome to : ${league.leagueName}'),
+                  LeagueMenu(league: league),
+                  league.leaguePhotoURL == ''
                       ? const SizedBox.shrink()
                       : Image.file(
-                          File(league?.leaguePhotoURL ?? ''),
+                          File(league.leaguePhotoURL ?? ''),
                           width: 100,
                           height: 100,
                           fit: BoxFit.cover,
                         ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        final user = snapshot.data![index];
-                        return ListTile(
-                          title: Text(user?.displayName ?? ''),
-                        );
-                      },
-                    ),
+                  LeagueUsersList(
+                    snapshot: snapshot,
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      leagueState.leaveLeague(widget.leagueId).then((_) {
-                        Navigator.pop(context);
-                      });
-                    },
-                    child: const Text('Leave League'),
-                  ),
-                  if (league?.withPayment ?? false)
-                    ElevatedButton(
-                      onPressed: () async {
-                        await launchUrl(Uri.parse(league?.paymentLink ?? ''));
-                      },
-                      child: const Text('Pay League'),
-                    ),
                 ],
               ),
             ),
           );
         }
       },
+    );
+  }
+}
+
+class LeagueUsersList extends StatelessWidget {
+  const LeagueUsersList({
+    super.key,
+    required this.snapshot,
+  });
+  final AsyncSnapshot<List<UserProps?>> snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: snapshot.data!.length,
+        itemBuilder: (context, index) {
+          final user = snapshot.data![index];
+          return ListTile(
+            title: Text(user?.displayName ?? ''),
+          );
+        },
+      ),
     );
   }
 }
